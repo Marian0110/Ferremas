@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ferremas - Carrito de Compras</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+<body>
+  <div class="main-content">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <a class="navbar-brand" href="indexcliente.html">
+          <img src="assets/img/logo.png" alt="Ferremas Logo" height="40">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="indexcliente.html">
+                <i class="fas fa-home me-1"></i> Inicio
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="productocliente.html">
+                <i class="fas fa-boxes me-1"></i> Productos
+              </a>
+            </li>
+          </ul>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active position-relative" href="carritocliente.html" id="btnNavCarrito">
+                <i class="fas fa-shopping-cart me-1"></i> Carrito
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger contador-carrito" style="display: none;">
+                  0
+                </span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="usuario.html" id="btnNavMiCuenta">
+                <i class="fas fa-user me-1"></i> Mi Cuenta
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-warning" href="login.html">
+                <i class="fas fa-sign-out-alt me-1"></i> Cerrar Sesión
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container my-5">
+      <div class="row">
+        <!-- Menú Rápido para "Carrito" -->
+        <div class="col-md-4 mb-4" id="menuCarrito">
+          <div class="card border-0 shadow">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0"><i class="fas fa-shopping-cart me-2"></i>Mis Compras</h5>
+            </div>
+            <div class="list-group list-group-flush">
+              <a href="#" class="list-group-item list-group-item-action active" id="btnCarritoActual" data-contenido="carrito">
+                <i class="fas fa-cart-shopping me-2"></i> Carrito Actual
+              </a>
+              <a href="#" class="list-group-item list-group-item-action" id="btnMisPedidos" data-contenido="misPedidos">
+                <i class="fas fa-history me-2"></i> Historial de Compras
+              </a>
+              <a href="#" class="list-group-item list-group-item-action" id="btnFavoritos" data-contenido="favoritos">
+                <i class="fas fa-heart me-2"></i> Favoritos
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Contenido Dinámico -->
+        <div class="col-md-8">
+          <!-- Contenido de Carrito -->
+          <div class="card mb-4 border-0 shadow contenido-dinamico" id="carrito">
+              <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0"><i class="fas fa-cart-shopping me-2"></i>Carrito de Compras</h5>
+                  <span class="badge bg-light text-primary fs-6">
+                      <span class="contador-carrito">0</span> productos
+                  </span>
+              </div>
+              <div class="card-body" id="carrito-contenido">
+                  <!-- El contenido del carrito se cargará dinámicamente aquí -->
+                  <div class="text-center py-4">
+                      <i class="fas fa-shopping-cart fa-4x text-muted mb-3"></i>
+                      <h5>Tu carrito está vacío</h5>
+                      <p class="text-muted">Agrega productos a tu carrito para verlos aquí</p>
+                      <a href="productocliente.html" class="btn btn-primary mt-2">
+                          <i class="fas fa-boxes me-2"></i> Ver productos
+                      </a>
+                  </div>
+              </div>
+              <div class="card-footer" id="carrito-footer" style="display: none;">
+                  <div class="row">
+                      <div class="col-md-6">
+                          <div class="mb-3">
+                              <label class="form-label"><strong>Método de Entrega</strong></label>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="metodoEntrega" id="retiroTienda" value="retiro" checked>
+                                  <label class="form-check-label" for="retiroTienda">
+                                      Retiro en Tienda
+                                  </label>
+                              </div>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="metodoEntrega" id="despachoDomicilio" value="despacho">
+                                  <label class="form-check-label" for="despachoDomicilio">
+                                      Despacho a Domicilio (+$5.000)
+                                  </label>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-6 text-end">
+                          <h5>Total: <span id="total-carrito">$0</span></h5>
+                          <button class="btn btn-primary btn-lg realizar-pedido">
+                              <i class="fas fa-credit-card me-2"></i> Finalizar Compra (WebPay)
+                          </button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
+          <!-- Contenido de Mis Pedidos -->
+          <div class="card mb-4 border-0 shadow contenido-dinamico d-none" id="misPedidos">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="fas fa-history me-2"></i>Historial de Compras</h5>
+                <span class="badge bg-light text-primary fs-6">
+                    <span id="contador-pedidos">0</span> pedidos
+                </span>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Pedido #</th>
+                                <th>Fecha</th>
+                                <th>Total</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaPedidos">
+                            <!-- Los pedidos se cargarán dinámicamente aquí -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="#" class="btn btn-primary" id="btnVerTodosPedidos" style="display: none;">
+                        <i class="fas fa-list me-2"></i> Ver todos los pedidos
+                    </a>
+                </div>
+            </div>
+        </div>
+          
+          <!-- Contenido de Favoritos -->
+          <div class="card border-0 shadow contenido-dinamico d-none" id="favoritos">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0"><i class="fas fa-heart me-2"></i>Mis Favoritos</h5>
+            </div>
+            <div class="card-body">
+              <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                Aquí podrás ver los productos que has marcado como favoritos.
+              </div>
+              <div class="text-center py-4">
+                <i class="fas fa-heart fa-4x text-muted mb-3"></i>
+                <h5>No tienes productos favoritos</h5>
+                <p class="text-muted">Agrega productos a tus favoritos para verlos aquí</p>
+                <a href="#" class="btn btn-primary mt-2">
+                  <i class="fas fa-boxes me-2"></i> Ver productos
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer mt-auto py-3 dark-color text-white">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 text-center text-md-start">
+            <img src="assets/img/logo.png" alt="Ferremas" style="height: 40px; filter: brightness(0) invert(1);">
+            <p class="mt-2 mb-0">Todo para tus proyectos de construcción y hogar</p>
+          </div>
+          <div class="col-md-4 text-center">
+            <h5>Contacto</h5>
+            <p><i class="fas fa-phone me-2"></i> (+569) 33568197</p>
+            <p><i class="fas fa-envelope me-2"></i> info@ferremas.com</p>
+          </div>
+          <div class="col-md-4 text-center text-md-end">
+            <h5>Horario</h5>
+            <p>Lun-Vie: 8:00 AM - 7:00 PM</p>
+            <p>Sáb-Dom: 9:00 AM - 5:00 PM</p>
+          </div>
+        </div>
+        <hr class="my-3 bg-light">
+        <div class="text-center">
+          <p class="mb-0">&copy; 2025 Ferremas. Todos los derechos reservados.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="assets/js/utils.js"></script>
+  <script src="assets/js/cliente.js"></script>
+  
+  <script>
+    // Función para manejar el cambio de contenido dinámico
+    document.querySelectorAll('.list-group-item').forEach(item => {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Quitar active de todos los items del menú
+        document.querySelectorAll('.list-group-item').forEach(menuItem => {
+          menuItem.classList.remove('active');
+        });
+        
+        // Agregar active al item seleccionado
+        this.classList.add('active');
+        
+        // Ocultar todos los contenidos dinámicos
+        document.querySelectorAll('.contenido-dinamico').forEach(contenido => {
+          contenido.classList.add('d-none');
+        });
+        
+        // Mostrar el contenido correspondiente
+        const contenidoId = this.getAttribute('data-contenido');
+        if (contenidoId) {
+          document.getElementById(contenidoId).classList.remove('d-none');
+          
+          // Si es el carrito, actualizar la vista
+          if (contenidoId === 'carrito') {
+            actualizarVistaCarrito();
+          }
+        }
+      });
+    });
+
+    // Función para actualizar la vista del carrito
+    function actualizarVistaCarrito() {
+    const carrito = JSON.parse(localStorage.getItem('ferremas-carrito')) || [];
+    const carritoContainer = document.getElementById('carrito');
+    const formatter = new Intl.NumberFormat('es-CL', {
+        style: 'currency',
+        currency: 'CLP',
+        minimumFractionDigits: 0
+    });
+    
+    if (carrito.length === 0) {
+        carritoContainer.querySelector('.card-body').innerHTML = `
+            <div class="text-center py-4">
+                <i class="fas fa-shopping-cart fa-4x text-muted mb-3"></i>
+                <h5>Tu carrito está vacío</h5>
+                <p class="text-muted">Agrega productos a tu carrito para verlos aquí</p>
+                <a href="productocliente.html" class="btn btn-primary mt-2">
+                    <i class="fas fa-boxes me-2"></i> Ver productos
+                </a>
+            </div>
+        `;
+        document.getElementById('carrito-footer').style.display = 'none';
+    } else {
+        // Calcular total con método de entrega
+        const subtotal = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+        const metodoEntrega = document.querySelector('input[name="metodoEntrega"]:checked')?.value || 'retiro';
+        const costoEntrega = metodoEntrega === 'despacho' ? 5000 : 0;
+        const total = subtotal + costoEntrega;
+        
+        const itemsHTML = carrito.map(item => `
+            <div class="row mb-3 align-items-center">
+                <div class="col-md-2">
+                    <img src="${item.imagen}" alt="${item.nombre}" class="img-fluid rounded" style="max-height: 60px;">
+                </div>
+                <div class="col-md-4">
+                    <h6 class="mb-0">${item.nombre}</h6>
+                    <small class="text-muted">${formatter.format(item.precio)} c/u</small>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group input-group-sm">
+                        <input type="number" class="form-control" value="${item.cantidad}" min="1">
+                        <button class="btn btn-outline-secondary actualizar-cantidad" type="button" data-id="${item.id}">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-2 text-end">
+                    <strong>${formatter.format(item.precio * item.cantidad)}</strong>
+                </div>
+                <div class="col-md-1 text-end">
+                    <button class="btn btn-sm btn-outline-danger eliminar-item-carrito" data-id="${item.id}">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `).join('');
+        
+        carritoContainer.querySelector('.card-body').innerHTML = `
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                Aquí puedes ver y gestionar los productos en tu carrito.
+            </div>
+            ${itemsHTML}
+            <div class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
+                <h5 class="mb-0">Subtotal:</h5>
+                <h4 class="mb-0 text-primary">${formatter.format(subtotal)}</h4>
+            </div>
+            ${costoEntrega > 0 ? `
+            <div class="d-flex justify-content-between align-items-center pt-2">
+                <h5 class="mb-0">Costo de envío:</h5>
+                <h4 class="mb-0 text-primary">${formatter.format(costoEntrega)}</h4>
+            </div>
+            ` : ''}
+            <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                <h4 class="mb-0">Total:</h4>
+                <h3 class="mb-0 text-success">${formatter.format(total)}</h3>
+            </div>
+        `;
+        
+        // Actualizar el total en el footer
+        document.getElementById('total-carrito').textContent = formatter.format(total);
+        document.getElementById('carrito-footer').style.display = 'block';
+        
+        // Configurar eventos para los radio buttons
+        document.querySelectorAll('input[name="metodoEntrega"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                actualizarVistaCarrito(); // Recargar la vista para actualizar total
+            });
+        });
+        
+        // Configurar eventos para actualizar cantidades
+        document.querySelectorAll('.actualizar-cantidad').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const productoId = this.dataset.id;
+                const input = this.closest('.input-group').querySelector('input');
+                const nuevaCantidad = parseInt(input.value);
+                
+                if (nuevaCantidad > 0) {
+                    actualizarCantidadCarrito(productoId, nuevaCantidad);
+                } else {
+                    input.value = 1;
+                }
+            });
+        });
+        
+        // Configurar eventos para eliminar items
+        document.querySelectorAll('.eliminar-item-carrito').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const productoId = this.dataset.id;
+                eliminarDelCarrito(productoId);
+            });
+        });
+    }
+    
+    actualizarContadorCarrito();
+}
+
+    // Mostrar carrito por defecto al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+      // Verificar autenticación
+      const currentUser = getCurrentUser();
+      if (!currentUser || currentUser.role !== 'cliente') {
+        window.location.href = 'login.html';
+        return;
+      }
+      
+      // Configurar carrito de compras
+      setupCarritoCompras();
+      
+      // Mostrar carrito por defecto
+      document.getElementById('btnCarritoActual').click();
+      
+      // Configurar historial de pedidos
+      setupPedidosHistorial(currentUser);
+    });
+  </script>
+</body>
+</html>

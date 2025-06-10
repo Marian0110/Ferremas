@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ferremas - Mi Cuenta</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+<body>
+  <div class="main-content">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <a class="navbar-brand" href="indexcliente.html">
+          <img src="assets/img/logo.png" alt="Ferremas Logo" height="40">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="indexcliente.html">
+                <i class="fas fa-home me-1"></i> Inicio
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="productocliente.html">
+                <i class="fas fa-boxes me-1"></i> Productos
+              </a>
+            </li>
+          </ul>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link position-relative" href="carritocliente.html" id="btnNavCarrito">
+                <i class="fas fa-shopping-cart me-1"></i> Carrito
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger contador-carrito" style="display: none;">
+                  0
+                </span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="usuario.html" id="btnNavMiCuenta">
+                <i class="fas fa-user me-1"></i> Mi Cuenta
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-warning" href="login.html">
+                <i class="fas fa-sign-out-alt me-1"></i> Cerrar Sesión
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container my-5">
+      <div class="row">
+        <!-- Sección de Perfil -->
+        <div class="col-md-4 mb-4" id="seccionPerfil">
+          <div class="card border-0 shadow">
+            <div class="card-body text-center user-profile">
+              <img id="userAvatar" src="https://ui-avatars.com/api/?name=U+S&background=e74c3c&color=fff&size=200" alt="Usuario" class="user-avatar rounded-circle mb-3">
+              <h4 id="nombreUsuario"></h4>
+              <p class="text-muted" id="rolUsuario"></p>
+              <hr>
+              <div class="d-flex justify-content-between mb-2">
+                <span>Miembro desde:</span>
+                <span id="fechaRegistro"></span>
+              </div>
+              <div class="d-flex justify-content-between mb-3">
+                <span>Puntos:</span>
+                <span class="badge bg-primary" id="puntosUsuario">0</span>
+              </div>
+              <button class="btn btn-outline-primary w-100 mb-2" id="btnEditarPerfil">
+                <i class="fas fa-user-edit me-2"></i> Editar Perfil
+              </button>
+            </div>
+          </div>
+          
+          <!-- Menú Rápido para "Mi Cuenta" -->
+          <div class="card mt-4 border-0 shadow" id="menuMiCuenta">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0"><i class="fas fa-bars me-2"></i>Menú Rápido</h5>
+            </div>
+            <div class="list-group list-group-flush">
+              <a href="#" class="list-group-item list-group-item-action active" id="btnInfoPersonal" data-contenido="infoPersonal">
+                <i class="fas fa-user-circle me-2"></i> Información Personal
+              </a>
+              <a href="#" class="list-group-item list-group-item-action" id="btnDirecciones" data-contenido="direcciones">
+                <i class="fas fa-map-marker-alt me-2"></i> Direcciones
+              </a>
+              <a href="#" class="list-group-item list-group-item-action" id="btnMetodosPago" data-contenido="metodosPago">
+                <i class="fas fa-credit-card me-2"></i> Métodos de Pago
+              </a>
+              <a href="#" class="list-group-item list-group-item-action" id="btnBeneficios" data-contenido="beneficios">
+                <i class="fas fa-award me-2"></i> Beneficios
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Contenido Dinámico -->
+        <div class="col-md-8">
+          <!-- Contenido de Información Personal -->
+          <div class="card mb-4 border-0 shadow contenido-dinamico" id="infoPersonal">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0"><i class="fas fa-user-circle me-2"></i>Información Personal</h5>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Nombres</label>
+                  <input type="text" class="form-control" id="inputNombres" readonly>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Apellidos</label>
+                  <input type="text" class="form-control" id="inputApellidos" readonly>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Correo Electrónico</label>
+                <input type="email" class="form-control" id="inputEmail" readonly>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Teléfono</label>
+                <input type="tel" class="form-control" id="inputTelefono" readonly>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Dirección Principal</label>
+                <textarea class="form-control" id="inputDireccion" rows="2" readonly></textarea>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Contenido de Direcciones -->
+          <div class="card border-0 shadow contenido-dinamico d-none" id="direcciones">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>Mis Direcciones</h5>
+            </div>
+            <div class="card-body">
+              <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                Administra tus direcciones de envío aquí.
+              </div>
+              <div class="text-center py-4">
+                <i class="fas fa-map-marker-alt fa-4x text-muted mb-3"></i>
+                <h5>No tienes direcciones guardadas</h5>
+                <p class="text-muted">Agrega direcciones para facilitar tus compras</p>
+                <button class="btn btn-primary mt-2" id="btnAgregarDireccion">
+                  <i class="fas fa-plus me-2"></i> Agregar dirección
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Contenido de Métodos de Pago -->
+          <div class="card border-0 shadow contenido-dinamico d-none" id="metodosPago">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0"><i class="fas fa-credit-card me-2"></i>Mis Métodos de Pago</h5>
+            </div>
+            <div class="card-body">
+              <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                Administra tus métodos de pago guardados.
+              </div>
+              <div class="text-center py-4">
+                <i class="fas fa-credit-card fa-4x text-muted mb-3"></i>
+                <h5>No tienes métodos de pago guardados</h5>
+                <p class="text-muted">Agrega métodos de pago para agilizar tus compras</p>
+                <button class="btn btn-primary mt-2" id="btnAgregarMetodoPago">
+                  <i class="fas fa-plus me-2"></i> Agregar método de pago
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Contenido de Beneficios -->
+          <div class="card border-0 shadow contenido-dinamico d-none" id="beneficios">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0"><i class="fas fa-award me-2"></i>Beneficios de Cliente</h5>
+            </div>
+            <div class="card-body">
+              <div class="row text-center">
+                <div class="col-md-4 mb-4">
+                  <div class="feature-icon text-primary">
+                    <i class="fas fa-tags fa-2x"></i>
+                  </div>
+                  <h5>Descuentos Exclusivos</h5>
+                  <p class="text-muted">Accede a ofertas especiales para clientes registrados.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                  <div class="feature-icon text-primary">
+                    <i class="fas fa-shipping-fast fa-2x"></i>
+                  </div>
+                  <h5>Envío Prioritario</h5>
+                  <p class="text-muted">Recibe tus pedidos más rápido que los clientes ocasionales.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                  <div class="feature-icon text-primary">
+                    <i class="fas fa-star fa-2x"></i>
+                  </div>
+                  <h5>Programa de Puntos</h5>
+                  <p class="text-muted">Acumula puntos con cada compra y canjéalos por premios.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer mt-auto py-3 dark-color text-white">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 text-center text-md-start">
+            <img src="assets/img/logo.png" alt="Ferremas" style="height: 40px; filter: brightness(0) invert(1);">
+            <p class="mt-2 mb-0">Todo para tus proyectos de construcción y hogar</p>
+          </div>
+          <div class="col-md-4 text-center">
+            <h5>Contacto</h5>
+            <p><i class="fas fa-phone me-2"></i> (+569) 33568197</p>
+            <p><i class="fas fa-envelope me-2"></i> info@ferremas.com</p>
+          </div>
+          <div class="col-md-4 text-center text-md-end">
+            <h5>Horario</h5>
+            <p>Lun-Vie: 8:00 AM - 7:00 PM</p>
+            <p>Sáb-Dom: 9:00 AM - 5:00 PM</p>
+          </div>
+        </div>
+        <hr class="my-3 bg-light">
+        <div class="text-center">
+          <p class="mb-0">&copy; 2025 Ferremas. Todos los derechos reservados.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="assets/js/utils.js"></script>
+  <script src="assets/js/cliente.js"></script>
+  
+  <script>
+    // Función para actualizar los datos del usuario en la interfaz
+    function actualizarDatosUsuario(user) {
+      if (!user) return;
+      
+      // Actualizar avatar con iniciales
+      const initials = (user.nombres?.charAt(0) || '') + (user.apellidos?.charAt(0) || '');
+      document.getElementById('userAvatar').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(initials)}&background=e74c3c&color=fff&size=200`;
+      
+      // Actualizar información del perfil
+      document.getElementById('nombreUsuario').textContent = `${user.nombres || ''} ${user.apellidos || ''}`;
+      document.getElementById('rolUsuario').textContent = user.role === 'cliente' ? 'Cliente' : 'Usuario';
+      document.getElementById('puntosUsuario').textContent = user.puntos?.toLocaleString() || '0';
+      
+      // Formatear fecha de registro
+      if (user.createdAt) {
+        const fechaRegistro = new Date(user.createdAt);
+        const options = { year: 'numeric', month: 'short' };
+        document.getElementById('fechaRegistro').textContent = 
+          fechaRegistro.toLocaleDateString('es-ES', options);
+      }
+      
+      // Actualizar información personal
+      document.getElementById('inputNombres').value = user.nombres || '';
+      document.getElementById('inputApellidos').value = user.apellidos || '';
+      document.getElementById('inputEmail').value = user.email || '';
+      document.getElementById('inputTelefono').value = user.telefono || '';
+      document.getElementById('inputDireccion').value = user.direccion || '';
+    }
+
+    // Función para manejar el cambio de contenido dinámico
+    document.querySelectorAll('.list-group-item').forEach(item => {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Quitar active de todos los items del menú
+        document.querySelectorAll('.list-group-item').forEach(menuItem => {
+          menuItem.classList.remove('active');
+        });
+        
+        // Agregar active al item seleccionado
+        this.classList.add('active');
+        
+        // Ocultar todos los contenidos dinámicos
+        document.querySelectorAll('.contenido-dinamico').forEach(contenido => {
+          contenido.classList.add('d-none');
+        });
+        
+        // Mostrar el contenido correspondiente
+        const contenidoId = this.getAttribute('data-contenido');
+        if (contenidoId) {
+          document.getElementById(contenidoId).classList.remove('d-none');
+        }
+      });
+    });
+
+    // Función para editar perfil con diseño mejorado
+    function editarPerfil(user) {
+      Swal.fire({
+        title: '<div class="bg-primary text-white p-3 rounded-top"><h5 class="mb-0"><i class="fas fa-user-edit me-2"></i>Editar Perfil</h5></div>',
+        html: `
+          <div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Nombres</label>
+                  <input type="text" class="form-control" id="editNombres" value="${user.nombres || ''}" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Apellidos</label>
+                  <input type="text" class="form-control" id="editApellidos" value="${user.apellidos || ''}" required>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Correo Electrónico</label>
+                <input type="email" class="form-control" id="editEmail" value="${user.email || ''}" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Teléfono</label>
+                <input type="tel" class="form-control" id="editTelefono" value="${user.telefono || ''}">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Dirección Principal</label>
+                <textarea class="form-control" id="editDireccion" rows="2">${user.direccion || ''}</textarea>
+              </div>
+            </div>
+          </div>
+        `,
+        showCancelButton: true,
+        confirmButtonText: 'Guardar Cambios',
+        confirmButtonColor: '#e74c3c',
+        cancelButtonText: 'Cancelar',
+        focusConfirm: false,
+        customClass: {
+          popup: 'p-0',
+          header: 'p-0 border-0',
+          title: 'p-0',
+          actions: 'mt-3',
+          confirmButton: 'me-2'
+        },
+        preConfirm: () => {
+          const nombres = document.getElementById('editNombres').value.trim();
+          const apellidos = document.getElementById('editApellidos').value.trim();
+          const email = document.getElementById('editEmail').value.trim();
+          const telefono = document.getElementById('editTelefono').value.trim();
+          const direccion = document.getElementById('editDireccion').value.trim();
+
+          if (!nombres || !apellidos || !email) {
+            Swal.showValidationMessage('Nombre, apellido y email son requeridos');
+            return false;
+          }
+
+          return { nombres, apellidos, email, telefono, direccion };
+        }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const updatedData = result.value;
+          const userIndex = window.db.users.findIndex(u => u.id === user.id);
+          
+          if (userIndex !== -1) {
+            // Actualizar usuario en la base de datos
+            window.db.users[userIndex] = {
+              ...window.db.users[userIndex],
+              ...updatedData
+            };
+            window.db.save();
+            
+            // Actualizar interfaz inmediatamente
+            actualizarDatosUsuario(window.db.users[userIndex]);
+            
+            Swal.fire({
+              icon: 'success',
+              title: '¡Perfil Actualizado!',
+              text: 'Tus cambios se han guardado correctamente.',
+              confirmButtonColor: '#27ae60'
+            });
+          }
+        }
+      });
+    }
+    
+    // Mostrar información personal por defecto al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+      // Verificar autenticación
+      const currentUser = getCurrentUser();
+      if (!currentUser || currentUser.role !== 'cliente') {
+        window.location.href = 'login.html';
+        return;
+      }
+      
+      // Cargar datos del usuario
+      actualizarDatosUsuario(currentUser);
+      
+      // Configurar historial de pedidos
+      setupPedidosHistorial(currentUser);
+      
+      // Configurar botón de editar perfil
+      document.getElementById('btnEditarPerfil')?.addEventListener('click', function() {
+        editarPerfil(currentUser);
+      });
+    });
+  </script>
+</body>
+</html>

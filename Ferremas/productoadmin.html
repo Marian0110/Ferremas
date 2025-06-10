@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ferremas - Admin Productos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+<body>
+  <div class="main-content">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img src="assets/img/logo.png" alt="Ferremas Logo">
+        </a>
+        <div class="navbar-collapse">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="admin.html">
+                <i class="fas fa-home me-1"></i> Inicio
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="empleadoadmin.html">
+                <i class="fas fa-users me-1"></i> Empleados
+              </a>
+            </li>
+          </ul>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <span class="nav-link text-white">
+                <i class="fas fa-user-shield me-1"></i> Panel Admin
+              </span>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-danger" href="#" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-md-4 mb-4 animated-entry">
+          <div class="card border-0 shadow">
+            <div class="card-header bg-danger text-white">
+              <h5 class="mb-0"><i class="fas fa-folder-plus me-2"></i>Agregar Categoría</h5>
+            </div>
+            <div class="card-body">
+              <form id="agregarCategoriaForm">
+                <div class="mb-3">
+                  <input type="text" class="form-control" id="nombreCategoria" placeholder="Nombre de categoría" required>
+                </div>
+                <button type="submit" class="btn btn-danger w-100">
+                  <i class="fas fa-save me-1"></i> Guardar Categoría
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <div class="card border-0 shadow mt-4">
+            <div class="card-header bg-danger text-white">
+              <h5 class="mb-0"><i class="fas fa-box-open me-2"></i>Agregar Producto</h5>
+            </div>
+            <div class="card-body">
+              <form id="agregarProductoForm">
+                <div class="mb-3">
+                  <select class="form-select" id="categoriaProducto" required>
+                    <option value="">Seleccionar categoría</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <input type="text" class="form-control" id="codigoProducto" placeholder="Código del producto (FER-XXXXX)" required>
+                </div>
+                <div class="mb-3">
+                  <input type="text" class="form-control" id="marcaProducto" placeholder="Marca del producto" required>
+                </div>
+                <div class="mb-3">
+                  <input type="text" class="form-control" id="codigoMarca" placeholder="Código de marca (XXX-XXXXX)" required>
+                </div>
+                <div class="mb-3">
+                  <input type="text" class="form-control" id="nombreProducto" placeholder="Nombre del producto" required>
+                </div>
+                <div class="mb-3">
+                  <input type="number" class="form-control" id="precioProducto" placeholder="Precio" step="0.01" required>
+                </div>
+                <div class="mb-3">
+                  <input type="number" class="form-control" id="stockProducto" placeholder="Stock" required>
+                </div>
+                <div class="mb-3">
+                  <label for="imagenProducto" class="form-label">Imagen del producto</label>
+                  <input type="file" class="form-control" id="imagenProducto" accept="image/*" required>
+                </div>
+                <button type="submit" class="btn btn-danger w-100">
+                  <i class="fas fa-save me-1"></i> Guardar Producto
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-8 animated-entry">
+          <div class="card border-0 shadow mb-4">
+            <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
+              <h5 class="mb-0"><i class="fas fa-boxes me-2"></i>Productos por Categoría</h5>
+              <span class="badge bg-light text-danger" id="totalProductos">0 productos</span>
+            </div>
+            <div class="card-body">
+              <div class="accordion" id="categoriasAccordion">
+                <!-- Las categorías y productos se cargarán aquí con JS -->
+              </div>
+            </div>
+          </div>
+
+          <div class="card border-primary shadow" id="edicionProductoCard" style="display: none;">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0"><i class="fas fa-edit me-2"></i>Editar Producto</h5>
+            </div>
+            <div class="card-body">
+              <form id="editarProductoForm">
+                <input type="hidden" id="editProdCatId">
+                <input type="hidden" id="editProdId">
+                <div class="mb-3">
+                  <label class="form-label">Código del producto</label>
+                  <input type="text" class="form-control" id="editProdCodigo" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Marca</label>
+                  <input type="text" class="form-control" id="editProdMarca" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Código de marca</label>
+                  <input type="text" class="form-control" id="editProdCodigoMarca" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Nombre</label>
+                  <input type="text" class="form-control" id="editProdNombre" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Precio actual</label>
+                  <input type="number" class="form-control" id="editProdPrecioActual" step="0.01" readonly>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Nuevo precio (opcional)</label>
+                  <input type="number" class="form-control" id="editProdNuevoPrecio" step="0.01">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Stock</label>
+                  <input type="number" class="form-control" id="editProdStock" required>
+                </div>
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save me-1"></i> Guardar Cambios
+                  </button>
+                  <button type="button" class="btn btn-secondary" id="cancelarEdicionProdBtn">
+                    <i class="fas fa-times me-1"></i> Cancelar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer mt-auto py-3 dark-color text-white">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 text-center text-md-start">
+            <img src="assets/img/logo.png" alt="Ferremas" style="height: 40px; filter: brightness(0) invert(1);">
+            <p class="mt-2 mb-0">Todo para tus proyectos de construcción y hogar</p>
+          </div>
+          <div class="col-md-4 text-center">
+            <h5>Contacto</h5>
+            <p><i class="fas fa-phone me-2"></i> (+569) 33568197</p>
+            <p><i class="fas fa-envelope me-2"></i> info@ferremas.com</p>
+          </div>
+          <div class="col-md-4 text-center text-md-end">
+            <h5>Horario</h5>
+            <p>Lun-Vie: 8:00 AM - 7:00 PM</p>
+            <p>Sáb-Dom: 9:00 AM - 5:00 PM</p>
+          </div>
+        </div>
+        <hr class="my-3 bg-light">
+        <div class="text-center">
+          <p class="mb-0">&copy; 2025 Ferremas. Todos los derechos reservados.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="assets/js/utils.js"></script>
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>

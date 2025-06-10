@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ferremas - Productos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+<body>
+  <div class="main-content">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <a class="navbar-brand" href="indexcliente.html">
+          <img src="assets/img/logo.png" alt="Ferremas Logo" height="40">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="indexcliente.html">
+                <i class="fas fa-home me-1"></i> Inicio
+              </a>
+            </li>
+          </ul>
+          <ul class="navbar-nav me-auto"> <!--conversor banco central-->
+            <li class="nav-item">
+              <div class="nav-link">
+                <select id="selectDivisa" class="form-select form-select-sm">
+                  <option value="CLP">CLP $</option>
+                  <option value="USD">USD $</option>
+                </select>
+              </div>
+            </li>
+          </ul>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link position-relative" href="carritocliente.html" id="btnNavCarrito">
+                <i class="fas fa-shopping-cart me-1"></i> Carrito
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger contador-carrito" style="display: none;">
+                  0
+                </span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="usuario.html" id="btnNavMiCuenta">
+                <i class="fas fa-user me-1"></i> Mi Cuenta
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-warning" href="login.html">
+                <i class="fas fa-sign-out-alt me-1"></i> Cerrar Sesión
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="container my-5">
+      <!-- Sección de categorías o productos -->
+      <div id="categoriasSection">
+        <div class="row mb-5">
+          <div class="col-12 mb-4 animated-entry">
+            <h2 class="text-center mb-5">Nuestras Categorías</h2>
+          </div>
+          <div class="col-md-4 mb-4 animated-entry" style="animation-delay: 0.2s;">
+            <div class="card h-100 category-card" onclick="mostrarProductos('Herramientas Manuales')">
+              <img src="assets/img/herramientasindex.jpg" class="card-img-top" alt="Herramientas">
+              <div class="card-body">
+                <h5 class="card-title">Herramientas Manuales</h5>
+                <p class="card-text">Todo tipo de herramientas manuales, eléctricas y profesionales para tus proyectos.</p>
+                <button class="btn btn-outline-primary">Explorar</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4 animated-entry" style="animation-delay: 0.4s;">
+            <div class="card h-100 category-card" onclick="mostrarProductos('Materiales Basicos')">
+              <img src="assets/img/materialesindex.jpg" class="card-img-top" alt="Materiales">
+              <div class="card-body">
+                <h5 class="card-title">Materiales Básicos</h5>
+                <p class="card-text">Materiales de construcción de la mejor calidad para tus obras y remodelaciones.</p>
+                <button class="btn btn-outline-primary">Explorar</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4 animated-entry" style="animation-delay: 0.6s;">
+            <div class="card h-100 category-card" onclick="mostrarProductos('Equipos de Seguridad')">
+              <img src="assets/img/equipo de seguridad.jpg" class="card-img-top" alt="Pinturas">
+              <div class="card-body">
+                <h5 class="card-title">Equipos de Seguridad</h5>
+                <p class="card-text">Protección profesional para garantizar tu seguridad en cada proyecto.</p>
+                <button class="btn btn-outline-primary">Explorar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección de productos (oculta inicialmente) -->
+      <div id="productosSection" style="display: none;">
+        <div class="d-flex align-items-center mb-4">
+          <button class="btn btn-outline-secondary me-3" onclick="volverACategorias()">
+            <i class="fas fa-arrow-left me-2"></i>Volver
+          </button>
+          <h2 id="tituloCategoria" class="mb-0"></h2>
+        </div>
+        
+        <div class="row" id="listaProductos">
+          <!-- Los productos se cargarán aquí dinámicamente -->
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer mt-auto py-3 dark-color text-white">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 text-center text-md-start">
+            <img src="assets/img/logo.png" alt="Ferremas" style="height: 40px; filter: brightness(0) invert(1);">
+            <p class="mt-2 mb-0">Todo para tus proyectos de construcción y hogar</p>
+          </div>
+          <div class="col-md-4 text-center">
+            <h5>Contacto</h5>
+            <p><i class="fas fa-phone me-2"></i> (+569) 33568197</p>
+            <p><i class="fas fa-envelope me-2"></i> info@ferremas.com</p>
+          </div>
+          <div class="col-md-4 text-center text-md-end">
+            <h5>Horario</h5>
+            <p>Lun-Vie: 8:00 AM - 7:00 PM</p>
+            <p>Sáb-Dom: 9:00 AM - 5:00 PM</p>
+          </div>
+        </div>
+        <hr class="my-3 bg-light">
+        <div class="text-center">
+          <p class="mb-0">&copy; 2025 Ferremas. Todos los derechos reservados.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="assets/js/utils.js"></script>
+  <script src="assets/js/cliente.js"></script>
+  <script>
+    // Mostrar nombre de usuario al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentUser = getCurrentUser();
+      if (!currentUser || currentUser.role !== 'cliente') {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      // Configurar carrito
+      setupCarritoCompras();
+      
+      // Verificar si hay un parámetro de categoría en la URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const categoriaParam = urlParams.get('categoria');
+      
+      if (categoriaParam) {
+        mostrarProductos(categoriaParam);
+      }
+      
+      // Configurar animaciones
+      const animatedElements = document.querySelectorAll('.animated-entry');
+      animatedElements.forEach((el, index) => {
+        el.style.animationDelay = `${index * 0.2}s`;
+      });
+    });
+
+    // Función para mostrar productos de una categoría específica
+    function mostrarProductos(nombreCategoria) {
+      // Ocultar sección de categorías y mostrar sección de productos
+      document.getElementById('categoriasSection').style.display = 'none';
+      document.getElementById('productosSection').style.display = 'block';
+      
+      // Actualizar título
+      document.getElementById('tituloCategoria').textContent = `Categoría: ${nombreCategoria}`;
+      
+      // Obtener productos de la categoría
+      const categoria = window.db.categories.find(c => c.name === nombreCategoria);
+      const productos = categoria ? categoria.products : [];
+      
+      // Generar HTML de los productos
+      const productosHTML = productos.map((producto, index) => {
+          const precioCLP = producto.attributes.Precio[0]?.Valor || 0;
+          
+          return `
+          <div class="col-md-3 mb-4 animated-entry" style="animation-delay: ${index * 0.1}s">
+              <div class="card product-card h-100" data-precio="${precioCLP}">
+                  ${producto.attributes.Stock < 10 ? '<span class="badge bg-warning position-absolute top-0 end-0 m-2">Últimas unidades</span>' : ''}
+                  <img src="assets/img/${getImagenProducto(producto.name)}" class="card-img-top" alt="${producto.name}" style="height: 180px; object-fit: contain; padding: 10px;">
+                  <div class="card-body">
+                      <h5 class="card-title">${producto.name}</h5>
+                      <p class="text-muted">${producto.attributes.Marca || 'Sin marca'}</p>
+                      <p class="text-muted small">Código: ${producto.attributes.Código || 'N/A'}</p>
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                          <span class="fw-bold precio">$${precioCLP.toLocaleString('es-CL')} CLP</span>
+                          <span class="badge ${producto.attributes.Stock > 0 ? 'bg-success' : 'bg-danger'}">
+                              ${producto.attributes.Stock > 0 ? `Stock: ${producto.attributes.Stock}` : 'Agotado'}
+                          </span>
+                      </div>
+                      <!-- Elemento para mostrar precio en dólares -->
+                      <p class="precio-convertido text-muted small mb-0" style="display: none;"></p>
+                  </div>
+                  <div class="card-footer bg-transparent">
+                      <button class="btn btn-primary w-100 agregar-carrito" 
+                              data-id="${producto.id}"
+                              ${producto.attributes.Stock <= 0 ? 'disabled' : ''}>
+                          <i class="fas fa-cart-plus me-2"></i>
+                          ${producto.attributes.Stock > 0 ? 'Agregar al carrito' : 'Sin stock'}
+                      </button>
+                  </div>
+              </div>
+          </div>
+          `;
+      }).join('');
+      
+      // Insertar productos en el DOM
+      document.getElementById('listaProductos').innerHTML = productosHTML;
+      
+      // Actualizar parámetro en la URL sin recargar la página
+      history.pushState(null, null, `?categoria=${encodeURIComponent(nombreCategoria)}`);
+      
+      // Configurar animaciones para los nuevos elementos
+      setTimeout(() => {
+          const animatedProducts = document.querySelectorAll('#listaProductos .animated-entry');
+          animatedProducts.forEach((el, index) => {
+              el.style.animationDelay = `${index * 0.1}s`;
+          });
+          
+          // Si ya tenemos la tasa de dólar, actualizar precios
+          if (tasaDolar) {
+              actualizarPrecios();
+          }
+      }, 50);
+    }
+
+    // Función para volver a la vista de categorías
+    function volverACategorias() {
+      document.getElementById('categoriasSection').style.display = 'block';
+      document.getElementById('productosSection').style.display = 'none';
+      history.pushState(null, null, 'productocliente.html');
+    }
+
+    // Función auxiliar para obtener imagen del producto
+    function getImagenProducto(nombreProducto) {
+      const imagenes = {
+        'Martillos': 'martillo.jpg',
+        'Destornilladores': 'destornilladores.jpg',
+        'Llaves': 'llaves.jpg',
+        'Herramientas Eléctricas': 'herramienta-electrica.jpg',
+        'Taladros': 'taladro.jpg',
+        'Sierras': 'sierra.jpg',
+        'Lijadoras': 'lijadora.jpg',
+        'Cemento': 'cemento.jpg',
+        'Arena': 'arena.jpg',
+        'Ladrillos': 'ladrillos.jpg',
+        'Acabados': 'acabados.jpg',
+        'Pinturas': 'pintura.jpg',
+        'Barnices': 'barniz.jpg',
+        'Cerámicos': 'ceramicos.jpg',
+        'Cascos': 'casco.jpg',
+        'Guantes': 'guantes.jpg',
+        'Lentes de Seguridad': 'lentes-seguridad.jpg',
+        'Accesorios Varios': 'accesorios.jpg'
+      };
+      
+      return imagenes[nombreProducto] || 'producto-default.jpg';
+    }
+</script>
+</body>
+</html>

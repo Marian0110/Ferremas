@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ferremas - Admin Empleados</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+<body>
+  <div class="main-content">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img src="assets/img/logo.png" alt="Ferremas Logo">
+        </a>
+        <div class="navbar-collapse">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="admin.html">
+                <i class="fas fa-home me-1"></i> Inicio
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="productoadmin.html">
+                <i class="fas fa-boxes me-1"></i> Productos
+              </a>
+            </li>
+          </ul>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <span class="nav-link text-white">
+                <i class="fas fa-user-shield me-1"></i> Panel Admin
+              </span>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-danger" href="#" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-md-4 mb-4 animated-entry">
+          <div class="card border-0 shadow">
+            <div class="card-header bg-danger text-white">
+              <h5 class="mb-0"><i class="fas fa-user-plus me-2"></i>Crear Empleado</h5>
+            </div>
+            <div class="card-body">
+              <form id="crearEmpleadoForm">
+                <div class="mb-3">
+                  <input type="text" class="form-control" id="empNombre" placeholder="Nombres" required>
+                </div>
+                <div class="mb-3">
+                  <input type="text" class="form-control" id="empApellido" placeholder="Apellidos" required>
+                </div>
+                <div class="mb-3">
+                  <input type="email" class="form-control" id="empEmail" placeholder="Correo electrónico" required>
+                </div>
+                <div class="mb-3">
+                  <input type="tel" class="form-control" id="empTelefono" placeholder="Teléfono">
+                </div>
+                <div class="mb-3">
+                  <select class="form-select" id="empRol" required>
+                    <option value="">Seleccionar rol</option>
+                    <option value="vendedor">Vendedor</option>
+                    <option value="bodeguero">Bodeguero</option>
+                    <option value="contador">Contador</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <select class="form-select" id="empSucursal" required>
+                    <option value="">Seleccionar sucursal</option>
+                    <optgroup label="Región de Arica y Parinacota">
+                      <option value="xv-arica">Arica (XV)</option>
+                      <option value="xv-parinacota">Putre (XV)</option>
+                    </optgroup>
+                    <optgroup label="Región de Tarapacá">
+                      <option value="i-iquique">Iquique (I)</option>
+                      <option value="i-alto-hospicio">Alto Hospicio (I)</option>
+                    </optgroup>
+                    <optgroup label="Región de Antofagasta">
+                      <option value="ii-antofagasta">Antofagasta (II)</option>
+                      <option value="ii-calama">Calama (II)</option>
+                      <option value="ii-mejillones">Mejillones (II)</option>
+                    </optgroup>
+                    <optgroup label="Región de Atacama">
+                      <option value="iii-copiapo">Copiapó (III)</option>
+                      <option value="iii-vallenar">Vallenar (III)</option>
+                      <option value="iii-caldera">Caldera (III)</option>
+                    </optgroup>
+                    <optgroup label="Región de Coquimbo">
+                      <option value="iv-la-serena">La Serena (IV)</option>
+                      <option value="iv-coquimbo">Coquimbo (IV)</option>
+                      <option value="iv-ovalle">Ovalle (IV)</option>
+                    </optgroup>
+                    <optgroup label="Región de Valparaíso">
+                      <option value="v-valparaiso">Valparaíso (V)</option>
+                      <option value="v-vina-del-mar">Viña del Mar (V)</option>
+                      <option value="v-quilpue">Quilpué (V)</option>
+                      <option value="v-san-antonio">San Antonio (V)</option>
+                      <option value="v-los-andes">Los Andes (V)</option>
+                    </optgroup>
+                    <optgroup label="Región Metropolitana">
+                      <option value="rm-santiago-centro">Santiago Centro (RM)</option>
+                      <option value="rm-alameda">Alameda (RM)</option>
+                      <option value="rm-providencia">Providencia (RM)</option>
+                      <option value="rm-las-condes">Las Condes (RM)</option>
+                      <option value="rm-nunoa">Ñuñoa (RM)</option>
+                      <option value="rm-maipu">Maipú (RM)</option>
+                      <option value="rm-pudahuel">Pudahuel (RM)</option>
+                      <option value="rm-san-bernardo">San Bernardo (RM)</option>
+                      <option value="rm-puente-alto">Puente Alto (RM)</option>
+                      <option value="rm-la-florida">La Florida (RM)</option>
+                      <option value="rm-la-cisterna">La Cisterna (RM)</option>
+                      <option value="rm-la-reina">La Reina (RM)</option>
+                      <option value="rm-la-pintana">La Pintana (RM)</option>
+                      <option value="rm-estacion-central">Estación Central (RM)</option>
+                      <option value="rm-quilicura">Quilicura (RM)</option>
+                    </optgroup>
+                    <optgroup label="Región del Libertador Bernardo O'Higgins">
+                      <option value="vi-rancagua">Rancagua (VI)</option>
+                      <option value="vi-san-fernando">San Fernando (VI)</option>
+                      <option value="vi-machalí">Machalí (VI)</option>
+                      <option value="vi-santa-cruz">Santa Cruz (VI)</option>
+                    </optgroup>
+                    <optgroup label="Región del Maule">
+                      <option value="vii-talca">Talca (VII)</option>
+                      <option value="vii-curico">Curicó (VII)</option>
+                      <option value="vii-linares">Linares (VII)</option>
+                      <option value="vii-constitución">Constitución (VII)</option>
+                    </optgroup>
+                    <optgroup label="Región del Ñuble">
+                      <option value="xvi-chillan">Chillán (XVI)</option>
+                      <option value="xvi-bulnes">Bulnes (XVI)</option>
+                      <option value="xvi-san-carlos">San Carlos (XVI)</option>
+                    </optgroup>
+                    <optgroup label="Región del Biobío">
+                      <option value="viii-concepcion">Concepción (VIII)</option>
+                      <option value="viii-talcahuano">Talcahuano (VIII)</option>
+                      <option value="viii-san-pedro">San Pedro de la Paz (VIII)</option>
+                      <option value="viii-chiguayante">Chiguayante (VIII)</option>
+                      <option value="viii-los-angeles">Los Ángeles (VIII)</option>
+                    </optgroup>
+                    <optgroup label="Región de La Araucanía">
+                      <option value="ix-temuco">Temuco (IX)</option>
+                      <option value="ix-villarrica">Villarrica (IX)</option>
+                      <option value="ix-angol">Angol (IX)</option>
+                      <option value="ix-pucón">Pucón (IX)</option>
+                    </optgroup>
+                    <optgroup label="Región de Los Ríos">
+                      <option value="xiv-valdivia">Valdivia (XIV)</option>
+                      <option value="xiv-la-union">La Unión (XIV)</option>
+                      <option value="xiv-rio-bueno">Río Bueno (XIV)</option>
+                    </optgroup>
+                    <optgroup label="Región de Los Lagos">
+                      <option value="x-puertomontt">Puerto Montt (X)</option>
+                      <option value="x-osorno">Osorno (X)</option>
+                      <option value="x-castro">Castro (X)</option>
+                      <option value="x-ancud">Ancud (X)</option>
+                      <option value="x-puerto-varas">Puerto Varas (X)</option>
+                    </optgroup>
+                    <optgroup label="Región de Aysén">
+                      <option value="xi-coyhaique">Coyhaique (XI)</option>
+                      <option value="xi-puerto-aysen">Puerto Aysén (XI)</option>
+                      <option value="xi-chile-chico">Chile Chico (XI)</option>
+                    </optgroup>
+                    <optgroup label="Región de Magallanes">
+                      <option value="xii-punta-arenas">Punta Arenas (XII)</option>
+                      <option value="xii-natales">Puerto Natales (XII)</option>
+                      <option value="xii-porvenir">Porvenir (XII)</option>
+                    </optgroup>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <input type="password" class="form-control" id="empPassword" placeholder="Contraseña" required>
+                </div>
+                <div class="mb-3">
+                  <input type="password" class="form-control" id="empConfirmPassword" placeholder="Confirmar Contraseña" required>
+                </div>
+                <button type="submit" class="btn btn-danger w-100">
+                  <i class="fas fa-save me-1"></i> Guardar Empleado
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-8 animated-entry">
+          <div class="card border-0 shadow mb-4">
+            <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
+              <h5 class="mb-0"><i class="fas fa-users me-2"></i>Lista de Empleados</h5>
+              <span class="badge bg-light text-danger" id="totalEmpleados">0 empleados</span>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Email</th>
+                      <th>Rol</th>
+                      <th>Sucursal</th>
+                      <th>Teléfono</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="listaEmpleados">
+                    <!-- JS cargará los datos aquí -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nueva sección de Lista de Clientes Registrados -->
+          <div class="card border-primary shadow mb-4">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+              <h5 class="mb-0"><i class="fas fa-user-friends me-2"></i>Lista de Clientes Registrados</h5>
+              <span class="badge bg-light text-primary" id="totalClientes">0 clientes</span>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Email</th>
+                      <th>Teléfono</th>
+                      <th>Dirección</th>
+                      <th>Fecha Registro</th>
+                    </tr>
+                  </thead>
+                  <tbody id="listaClientes">
+                    <!-- JS cargará los datos aquí -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="card border-primary shadow" id="edicionEmpleadoCard" style="display: none;">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0"><i class="fas fa-user-edit me-2"></i>Editar Empleado</h5>
+            </div>
+            <div class="card-body">
+              <form id="editarEmpleadoForm">
+                <input type="hidden" id="editEmpId">
+                <div class="mb-3">
+                  <label class="form-label">Nombres</label>
+                  <input type="text" class="form-control" id="editEmpNombre" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Apellidos</label>
+                  <input type="text" class="form-control" id="editEmpApellido" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Email</label>
+                  <input type="email" class="form-control" id="editEmpEmail" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Teléfono</label>
+                  <input type="tel" class="form-control" id="editEmpTelefono">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Rol</label>
+                  <select class="form-select" id="editEmpRol" required>
+                    <option value="vendedor">Vendedor</option>
+                    <option value="bodeguero">Bodeguero</option>
+                    <option value="contador">Contador</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Sucursal</label>
+                  <select class="form-select" id="editEmpSucursal" required>
+                    <optgroup label="Región de Arica y Parinacota">
+                      <option value="xv-arica">Arica (XV)</option>
+                      <option value="xv-parinacota">Putre (XV)</option>
+                    </optgroup>
+                    <optgroup label="Región de Tarapacá">
+                      <option value="i-iquique">Iquique (I)</option>
+                      <option value="i-alto-hospicio">Alto Hospicio (I)</option>
+                    </optgroup>
+                    <optgroup label="Región de Antofagasta">
+                      <option value="ii-antofagasta">Antofagasta (II)</option>
+                      <option value="ii-calama">Calama (II)</option>
+                      <option value="ii-mejillones">Mejillones (II)</option>
+                    </optgroup>
+                    <optgroup label="Región de Atacama">
+                      <option value="iii-copiapo">Copiapó (III)</option>
+                      <option value="iii-vallenar">Vallenar (III)</option>
+                      <option value="iii-caldera">Caldera (III)</option>
+                    </optgroup>
+                    <optgroup label="Región de Coquimbo">
+                      <option value="iv-la-serena">La Serena (IV)</option>
+                      <option value="iv-coquimbo">Coquimbo (IV)</option>
+                      <option value="iv-ovalle">Ovalle (IV)</option>
+                    </optgroup>
+                    <optgroup label="Región de Valparaíso">
+                      <option value="v-valparaiso">Valparaíso (V)</option>
+                      <option value="v-vina-del-mar">Viña del Mar (V)</option>
+                      <option value="v-quilpue">Quilpué (V)</option>
+                      <option value="v-san-antonio">San Antonio (V)</option>
+                      <option value="v-los-andes">Los Andes (V)</option>
+                    </optgroup>
+                    <optgroup label="Región Metropolitana">
+                      <option value="rm-santiago-centro">Santiago Centro (RM)</option>
+                      <option value="rm-alameda">Alameda (RM)</option>
+                      <option value="rm-providencia">Providencia (RM)</option>
+                      <option value="rm-las-condes">Las Condes (RM)</option>
+                      <option value="rm-nunoa">Ñuñoa (RM)</option>
+                      <option value="rm-maipu">Maipú (RM)</option>
+                      <option value="rm-pudahuel">Pudahuel (RM)</option>
+                      <option value="rm-san-bernardo">San Bernardo (RM)</option>
+                      <option value="rm-puente-alto">Puente Alto (RM)</option>
+                      <option value="rm-la-florida">La Florida (RM)</option>
+                      <option value="rm-la-cisterna">La Cisterna (RM)</option>
+                      <option value="rm-la-reina">La Reina (RM)</option>
+                      <option value="rm-la-pintana">La Pintana (RM)</option>
+                      <option value="rm-estacion-central">Estación Central (RM)</option>
+                      <option value="rm-quilicura">Quilicura (RM)</option>
+                    </optgroup>
+                    <optgroup label="Región del Libertador Bernardo O'Higgins">
+                      <option value="vi-rancagua">Rancagua (VI)</option>
+                      <option value="vi-san-fernando">San Fernando (VI)</option>
+                      <option value="vi-machali">Machalí (VI)</option>
+                      <option value="vi-santa-cruz">Santa Cruz (VI)</option>
+                    </optgroup>
+                    <optgroup label="Región del Maule">
+                      <option value="vii-talca">Talca (VII)</option>
+                      <option value="vii-curico">Curicó (VII)</option>
+                      <option value="vii-linares">Linares (VII)</option>
+                      <option value="vii-constitucion">Constitución (VII)</option>
+                    </optgroup>
+                    <optgroup label="Región del Ñuble">
+                      <option value="xvi-chillan">Chillán (XVI)</option>
+                      <option value="xvi-bulnes">Bulnes (XVI)</option>
+                      <option value="xvi-san-carlos">San Carlos (XVI)</option>
+                    </optgroup>
+                    <optgroup label="Región del Biobío">
+                      <option value="viii-concepcion">Concepción (VIII)</option>
+                      <option value="viii-talcahuano">Talcahuano (VIII)</option>
+                      <option value="viii-san-pedro">San Pedro de la Paz (VIII)</option>
+                      <option value="viii-chiguayante">Chiguayante (VIII)</option>
+                      <option value="viii-los-angeles">Los Ángeles (VIII)</option>
+                    </optgroup>
+                    <optgroup label="Región de La Araucanía">
+                      <option value="ix-temuco">Temuco (IX)</option>
+                      <option value="ix-villarrica">Villarrica (IX)</option>
+                      <option value="ix-angol">Angol (IX)</option>
+                      <option value="ix-pucon">Pucón (IX)</option>
+                    </optgroup>
+                    <optgroup label="Región de Los Ríos">
+                      <option value="xiv-valdivia">Valdivia (XIV)</option>
+                      <option value="xiv-la-union">La Unión (XIV)</option>
+                      <option value="xiv-rio-bueno">Río Bueno (XIV)</option>
+                    </optgroup>
+                    <optgroup label="Región de Los Lagos">
+                      <option value="x-puertomontt">Puerto Montt (X)</option>
+                      <option value="x-osorno">Osorno (X)</option>
+                      <option value="x-castro">Castro (X)</option>
+                      <option value="x-ancud">Ancud (X)</option>
+                      <option value="x-puerto-varas">Puerto Varas (X)</option>
+                    </optgroup>
+                    <optgroup label="Región de Aysén">
+                      <option value="xi-coyhaique">Coyhaique (XI)</option>
+                      <option value="xi-puerto-aysen">Puerto Aysén (XI)</option>
+                      <option value="xi-chile-chico">Chile Chico (XI)</option>
+                    </optgroup>
+                    <optgroup label="Región de Magallanes">
+                      <option value="xii-punta-arenas">Punta Arenas (XII)</option>
+                      <option value="xii-natales">Puerto Natales (XII)</option>
+                      <option value="xii-porvenir">Porvenir (XII)</option>
+                    </optgroup>
+                  </select>
+                </div>
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save me-1"></i> Guardar Cambios
+                  </button>
+                  <button type="button" class="btn btn-secondary" id="cancelarEdicionBtn">
+                    <i class="fas fa-times me-1"></i> Cancelar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer mt-auto py-3 dark-color text-white">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 text-center text-md-start">
+            <img src="assets/img/logo.png" alt="Ferremas" style="height: 40px; filter: brightness(0) invert(1);">
+            <p class="mt-2 mb-0">Todo para tus proyectos de construcción y hogar</p>
+          </div>
+          <div class="col-md-4 text-center">
+            <h5>Contacto</h5>
+            <p><i class="fas fa-phone me-2"></i> (+569) 33568197</p>
+            <p><i class="fas fa-envelope me-2"></i> info@ferremas.com</p>
+          </div>
+          <div class="col-md-4 text-center text-md-end">
+            <h5>Horario</h5>
+            <p>Lun-Vie: 8:00 AM - 7:00 PM</p>
+            <p>Sáb-Dom: 9:00 AM - 5:00 PM</p>
+          </div>
+        </div>
+        <hr class="my-3 bg-light">
+        <div class="text-center">
+          <p class="mb-0">&copy; 2025 Ferremas. Todos los derechos reservados.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="assets/js/utils.js"></script>
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>

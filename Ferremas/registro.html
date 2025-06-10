@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ferremas - Registro</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+<body>
+  <div class="main-content">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="assets/img/logo.png" alt="Ferremas Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="index.html"><i class="fas fa-home"></i> Inicio</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container my-5">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <div class="card border-0 shadow">
+            <div class="card-body p-4">
+              <div class="text-center mb-4">
+                <img src="assets/img/logo.png" alt="Ferremas" class="img-fluid mb-3" style="max-height: 80px;">
+                <h3 class="card-title">Registro de Cliente</h3>
+                <p class="text-muted">Crea tu cuenta en Ferremas</p>
+              </div>
+              
+              <form id="registroForm">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="firstName" class="form-label">Nombres</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="Juan" required>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="lastName" class="form-label">Apellidos</label>
+                    <input type="text" class="form-control" id="lastName" placeholder="Pérez" required>
+                  </div>
+                </div>
+                
+                <div class="mb-3">
+                  <label for="email" class="form-label">Correo Electrónico</label>
+                  <input type="email" class="form-control" id="email" placeholder="tu@email.com" required>
+                </div>
+                
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="password" placeholder="••••••••" required>
+                    <div class="form-text">Mínimo 8 caracteres</div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+                    <input type="password" class="form-control" id="confirmPassword" placeholder="••••••••" required>
+                  </div>
+                </div>
+                
+                <div class="mb-3">
+                  <label for="phone" class="form-label">Teléfono</label>
+                  <input type="tel" class="form-control" id="phone" placeholder="+56 987654321">
+                </div>
+                
+                <div class="mb-3">
+                  <label for="address" class="form-label">Dirección</label>
+                  <textarea class="form-control" id="address" rows="2" placeholder="Av. Principal 123"></textarea>
+                </div>
+                
+                <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input" id="newsletter">
+                  <label class="form-check-label" for="newsletter">¿Deseas recibir noticias, ofertas y descuentos?</label>
+                </div>
+                
+                <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input" id="terms" required>
+                  <label class="form-check-label" for="terms">Acepto los <a href="#" class="text-decoration-none">Términos y Condiciones</a></label>
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-100">
+                  <i class="fas fa-user-plus me-2"></i> Registrarse
+                </button>
+              </form>
+              
+              <hr class="my-4">
+              
+              <div class="text-center">
+                <p class="mb-0">¿Ya tienes una cuenta? <a href="login.html" class="text-decoration-none">Inicia Sesión</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer mt-auto py-3 dark-color text-white">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 text-center text-md-start">
+            <img src="assets/img/logo.png" alt="Ferremas" style="height: 40px; filter: brightness(0) invert(1);">
+            <p class="mt-2 mb-0">Todo para tus proyectos de construcción y hogar</p>
+          </div>
+          <div class="col-md-4 text-center">
+            <h5>Contacto</h5>
+            <p><i class="fas fa-phone me-2"></i> (+569) 33568197</p>
+            <p><i class="fas fa-envelope me-2"></i> info@ferremas.com</p>
+          </div>
+          <div class="col-md-4 text-center text-md-end">
+            <h5>Horario</h5>
+            <p>Lun-Vie: 8:00 AM - 7:00 PM</p>
+            <p>Sáb-Dom: 9:00 AM - 5:00 PM</p>
+          </div>
+        </div>
+        <hr class="my-3 bg-light">
+        <div class="text-center">
+          <p class="mb-0">&copy; 2025 Ferremas. Todos los derechos reservados.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="assets/js/utils.js"></script>
+  <script src="assets/js/cliente.js"></script>
+</body>
+</html>

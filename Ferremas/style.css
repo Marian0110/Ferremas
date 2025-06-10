@@ -1,0 +1,313 @@
+:root {
+  --primary-color: #e74c3c;
+  --secondary-color: #f39c12;
+  --dark-color: #2c3e50;
+  --light-color: #ecf0f1;
+  --accent-color: #3498db;
+  --success-color: #27ae60;
+}
+
+/* Estructura principal mejorada */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  color: var(--dark-color);
+  position: relative;
+}
+
+/* Imagen de fondo */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('assets/img/fondo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  z-index: -2;
+}
+
+/* Overlay semi-transparente */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: -1;
+}
+
+/* Contenido principal - Ajuste clave para el footer */
+.main-content {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Contenedor principal ajustado */
+.container.main-container {
+  flex: 1;
+  padding-bottom: 2rem; /* Espacio extra para el footer */
+}
+
+/* Ajustes específicos para el panel de vendedor */
+#vendedorContent {
+  min-height: 400px; /* Altura mínima para evitar que el footer suba */
+}
+
+.navbar {
+  background-color: rgba(44, 62, 80, 0.9) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.navbar-brand img {
+  height: 40px;
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand img:hover {
+  transform: scale(1.05);
+}
+
+.nav-link {
+  color: var(--light-color) !important;
+  font-weight: 500;
+  margin: 0 10px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--secondary-color) !important;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--secondary-color);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #c0392b;
+  border-color: #c0392b;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #d35400;
+  border-color: #d35400;
+  transform: translateY(-2px);
+}
+
+.form-control {
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+}
+
+.animated-entry {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.floating {
+  animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.user-profile {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.user-avatar {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border: 5px solid white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+/* Footer mejorado */
+.footer {
+  background-color: var(--dark-color);
+  color: var(--light-color);
+  padding: 2rem 0;
+  margin-top: auto;
+  width: 100%;
+}
+
+.footer a {
+  color: var(--secondary-color);
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+/* Contenido de ejemplo para el vendedor */
+.vendedor-content {
+  padding-bottom: 2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card {
+    margin-bottom: 20px;
+  }
+  
+  .navbar-brand img {
+    height: 35px;
+  }
+  
+  #vendedorContent {
+    min-height: 300px;
+  }
+}
+
+/* Pestañas del vendedor - Versión minimalista */
+#vendedorTabs .nav-link {
+  color: #000 !important; /* Texto negro sólido */
+  background-color: transparent !important;
+  border: none !important;
+  border-bottom: 3px solid transparent !important;
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  font-weight: 600;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+#vendedorTabs .nav-link:hover {
+  opacity: 1;
+  color: #000 !important;
+  border-bottom-color: #ffc107 !important; /* Línea amarilla al hover */
+  transform: translateY(-2px);
+}
+
+#vendedorTabs .nav-link.active {
+  opacity: 1 !important;
+  color: #000 !important;
+  border-bottom-color: #000 !important; /* Línea negra para pestaña activa */
+  font-weight: 700;
+}
+
+/* Contenido de pestañas */
+.tab-content {
+  padding-top: 1rem;
+}
+
+
+
+
+
+
+
+.floating {
+      animation: floating 3s ease-in-out infinite;
+    }
+    @keyframes floating {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+    .animated-entry {
+      opacity: 0;
+      animation: fadeIn 0.5s ease-in-out forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    .product-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .category-card {
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .category-card:hover {
+      transform: scale(1.03);
+    }
+    .dark-color {
+      background-color: #2c3e50;
+    }
